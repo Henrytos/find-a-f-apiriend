@@ -1,0 +1,28 @@
+{
+  "name": "find-a-friend-api",
+  "version": "1.0.0",
+  "description": "Encontre o animal de estimação ideal para seu estilo de vida!",
+  "main": "index.js",
+  "scripts": {
+    "test": "run vitest",
+    "start": "node build/server.ts",
+    "start:dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cookie": "^9.3.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.27.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "tsup": "^8.0.2",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
