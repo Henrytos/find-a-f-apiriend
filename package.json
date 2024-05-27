@@ -4,7 +4,7 @@
   "description": "Encontre o animal de estimação ideal para seu estilo de vida!",
   "main": "index.js",
   "scripts": {
-    "test": "run vitest",
+    "test": "vitest",
     "start": "node build/server.ts",
     "start:dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build"
@@ -17,6 +17,7 @@
     "@prisma/client": "^5.14.0",
     "dotenv": "^16.4.5",
     "fastify": "^4.27.0",
+    "vite-tsconfig-paths": "^4.3.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

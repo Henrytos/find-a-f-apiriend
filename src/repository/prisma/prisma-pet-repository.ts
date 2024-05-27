@@ -1,10 +1,9 @@
-import { Prisma, $Enums } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime/library";
-import { PetRepository } from "../pet-repository";
+import { CreatePetParams, PetRepository } from "../pet-repository";
 import { prisma } from "@/lib/prisma";
 
 export class PrismaPetRepository implements PetRepository {
-    async create(data: Prisma.PetCreateInput) {
+    async create({ data, organization_id }: CreatePetParams) {
+
         const pet = await prisma.pet.create({
             data: {
                 name: data.name,
@@ -15,7 +14,10 @@ export class PrismaPetRepository implements PetRepository {
                 image_url: data.image_url,
                 requirement: data.requirement,
                 level_independence: data.level_independence,
+                organization_id,
             }
         })
+
+        return pet
     }
 }
