@@ -1,6 +1,6 @@
 import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repository";
 import { beforeEach, describe, expect, it } from "vitest";
-import { RegisterPetUseCase } from "./register-pet-use-case";
+import { RegisterPetUseCase } from "./register-pet";
 
 let petRepository: InMemoryPetRepository
 let sut: RegisterPetUseCase
@@ -22,7 +22,6 @@ describe('register pet (UNIT)', () => {
             size: 'LARGE',
         }
         )
-        console.log(pet)
         expect(pet).toEqual(
             expect.objectContaining({
                 id: 'pet-01',

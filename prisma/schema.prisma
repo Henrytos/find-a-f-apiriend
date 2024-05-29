@@ -19,15 +19,25 @@ enum LevelPet{
   LARGE
 }
 
+enum Role {
+  ORG
+}
 
 model Organization {
   id                 String @id @default(uuid())
   pet                Pet[]
+  role               Role @default(ORG)
   manager_name       String
   email              String
   phone              String
   password_hash      String  
-  address            Address?   
+
+  roadway            String
+  number             String
+  neighborhood       String
+  city               String
+  state              String
+  address            String
    @@map("organizations")
 }
 
@@ -48,15 +58,3 @@ model Pet {
 
 
 
-model Address{
-  id                 String @id @default(uuid())
-  address            String
-  state              String
-  organization_id    String   @unique
-  organization       Organization @relation(fields: [organization_id], references: [id])
-}
-
-enum Role {
-  ADMIN
-  MEMBER
-}

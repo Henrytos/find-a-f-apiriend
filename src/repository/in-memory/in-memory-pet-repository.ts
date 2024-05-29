@@ -1,10 +1,11 @@
-import { Pet } from "@prisma/client";
+import { $Enums, Pet } from "@prisma/client";
 import { CreatePetParams, PetRepository } from "../pet-repository";
 import { Decimal } from "@prisma/client/runtime/library";
 import { randomUUID } from "crypto";
 
 export class InMemoryPetRepository implements PetRepository {
-    private items: Pet[] = []
+    public items: Pet[] = []
+
     async create({ data }: CreatePetParams) {
 
         const pet: Pet = {
@@ -28,4 +29,20 @@ export class InMemoryPetRepository implements PetRepository {
 
     }
 
+    async findByPetsToOrganizationId(organizationId: string) {
+        const pets = this.items.filter(item => item.organization_id === organizationId)
+        return pets
+    }
+
+    async findByPetsToOrganizationsId({ organizationsId }: { organizationsId: string[]; }) {
+        const pets = []
+
+        for (const organizationId of organizationsId) {
+            const pet = await this.findByPetsToOrganizationId(organizationId)
+            pets.push(...pet)
+        }
+
+        return pets
+
+    }
 }
