@@ -1,7 +1,7 @@
 import { OrganizationRepository } from "@/repository/organization-repository";
 import { PetRepository } from "@/repository/pet-repository";
 import { Pet, Prisma } from "@prisma/client";
-import { NotFoundOrganizationInCity } from "./errors/not-found-organization";
+import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-error";
 
 type LevelPet = 'SMALL' | 'MEDIUM' | 'LARGE'
 
@@ -19,9 +19,8 @@ export class FetchPetsFromACityUseCase {
     async execute({ cityName }: FetchPetsFromACityUseCaseRequest): Promise<FetchPetsFromACityUseCaseResponse> {
 
         const organizations = await this.organizationRepository.findByCityName(cityName)
-
         if (!organizations) {
-            throw new NotFoundOrganizationInCity()
+            throw new NotFoundOrganizationInCityError()
         }
 
         const organizationsId = organizations.map(org => org.id)

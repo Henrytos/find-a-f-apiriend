@@ -7,6 +7,9 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
 
     async findByCityName(cityName: string) {
         const organizationOfACity = this.items.filter(item => item.city === cityName)
+        if (organizationOfACity.length === 0) {
+            return null
+        }
         return organizationOfACity
     }
 
@@ -32,7 +35,7 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
 
     }
 
-    async findById(id: string) {
+    async findByIds(id: string) {
         const organizations = this.items.filter(item => item.id === id)
         return organizations
     }

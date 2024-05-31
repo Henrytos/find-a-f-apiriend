@@ -1,9 +1,9 @@
 import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repository";
 import { beforeEach, describe, expect, it } from "vitest";
-import { RegisterPetUseCase } from "./register-pet";
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { FetchPetsFromACityUseCase } from "./fetch-pets-from-a-city";
 import { Decimal } from "@prisma/client/runtime/library";
+import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-error";
 
 let petRepository: InMemoryPetRepository
 let organizationRepository: InMemoryOrganizationRepository
@@ -83,24 +83,9 @@ describe('fetch pet from a city (UNIT)', () => {
         ])
     })
 
-    it('should be possible to find pets in an unregistered city', async () => {
 
+    it('It should not be possible to find pets from city-name-invalid', async () => {
+        await expect(() => sut.execute({ cityName: '' })).rejects.toBeInstanceOf(NotFoundOrganizationInCityError)
 
-
-        petRepository.items.push({
-            id: 'pet-01',
-            about: 'um  cat legal',
-            age: new Decimal(+'1'),
-            environment: 'LARGE',
-            level_independence: 'LARGE',
-            name: 'pet',
-            organization_id: 'organization-01',
-            size: 'LARGE',
-            image_url: [],
-            requirement: []
-        })
-
-        const { pets } = await sut.execute({ cityName: 'city-sin-organizations' })
-        expect(pets).toEqual([])
     })
 })
