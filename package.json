@@ -4,7 +4,8 @@
   "description": "Encontre o animal de estimação ideal para seu estilo de vida!",
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "start": "node build/server.ts",
     "start:dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build"

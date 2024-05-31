@@ -5,7 +5,6 @@ import { NotFoundPetError } from "./errors/not-found-pet-error";
 
 
 interface GetPetForAdoptionUseCaseRequest {
-    organizationId: string
     petId: string;
 }
 interface GetPetForAdoptionUseCaseResponse {
