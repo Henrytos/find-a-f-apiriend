@@ -17,7 +17,7 @@ export class GetPetForAdoptionUseCase {
     async execute({ petId }: GetPetForAdoptionUseCaseRequest): Promise<GetPetForAdoptionUseCaseResponse> {
 
 
-        const pet = await this.petRepository.findById(petId);
+        const pet = await this.petRepository.findByPetId(petId);
         if (!pet) {
             throw new NotFoundPetError()
         }

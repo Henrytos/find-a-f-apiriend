@@ -5,7 +5,7 @@ import { randomUUID } from "crypto";
 export class InMemoryOrganizationRepository implements OrganizationRepository {
     public items: Organization[] = []
 
-    async findByCityName(cityName: string) {
+    async findManyOrganizationByCityName(cityName: string) {
         const organizationOfACity = this.items.filter(item => item.city === cityName)
         if (organizationOfACity.length === 0) {
             return null
@@ -35,7 +35,7 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
 
     }
 
-    async findByIds(id: string) {
+    async findManyOrganizationId(id: string) {
         const organizations = this.items.filter(item => item.id === id)
         return organizations
     }

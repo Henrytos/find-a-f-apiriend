@@ -1,13 +1,18 @@
 import { $Enums, Pet } from "@prisma/client";
-import { CreatePetParams, PetRepository } from "../pet-repository";
+import { CreatePetParams, PetCharacteristics, PetRepository } from "../pet-repository";
 import { Decimal } from "@prisma/client/runtime/library";
 import { randomUUID } from "crypto";
 
 export class InMemoryPetRepository implements PetRepository {
+
     public items: Pet[] = []
 
+    async findManyPetByCharacteristics(petCharacteristics: PetCharacteristics) {
+        const pets = this.items.filter(item => item.age === petCharacteristics.age && item.size === petCharacteristics.size && item.level_independence === petCharacteristics.level_independence && item.level_environment === petCharacteristics.level_environment)
+        return pets
+    }
 
-    async findById(petId: string) {
+    async findByPetId(petId: string) {
         const pet = this.items.find(item => item.id === petId);
         if (!pet) {
             return null
@@ -19,8 +24,8 @@ export class InMemoryPetRepository implements PetRepository {
             id: data.id ? data.id : randomUUID(),
             name: data.name,
             about: data.about,
-            age: new Decimal(+data.age),
-            environment: data.environment,
+            age: data.age,
+            level_environment: data.level_environment,
             size: data.size,
             image_url: [],
             requirement: [],
@@ -36,16 +41,16 @@ export class InMemoryPetRepository implements PetRepository {
 
     }
 
-    async findByPetsToOrganizationId(organizationId: string) {
+    async findManyPetByOrganizationId(organizationId: string) {
         const pets = this.items.filter(item => item.organization_id === organizationId)
         return pets
     }
 
-    async findByPetsToOrganizationsId({ organizationsId }: { organizationsId: string[]; }) {
+    async findManyPetByManyOrganizationId({ organizationsId }: { organizationsId: string[]; }) {
         const pets = []
 
         for (const organizationId of organizationsId) {
-            const pet = await this.findByPetsToOrganizationId(organizationId)
+            const pet = await this.findManyPetByOrganizationId(organizationId)
             pets.push(...pet)
         }
 

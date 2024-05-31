@@ -18,13 +18,13 @@ export class FetchPetsFromACityUseCase {
 
     async execute({ cityName }: FetchPetsFromACityUseCaseRequest): Promise<FetchPetsFromACityUseCaseResponse> {
 
-        const organizations = await this.organizationRepository.findByCityName(cityName)
+        const organizations = await this.organizationRepository.findManyOrganizationByCityName(cityName)
         if (!organizations) {
             throw new NotFoundOrganizationInCityError()
         }
 
         const organizationsId = organizations.map(org => org.id)
-        const pets = await this.petRepository.findByPetsToOrganizationsId({ organizationsId })
+        const pets = await this.petRepository.findManyPetByManyOrganizationId({ organizationsId })
         return {
             pets
         };

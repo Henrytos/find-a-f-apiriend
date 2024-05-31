@@ -41,18 +41,41 @@ model Organization {
    @@map("organizations")
 }
 
+enum PET_AGE{
+  FILHOTE
+  ADULTO
+  IDOSO
+}
+
+enum PET_SIZE{
+  PEQUENO
+  MEDIO
+  GRANDE
+}
+enum PET_LEVEL_INDEPENDENCE{
+  BAIXO
+  MEDIO
+  ALTO
+}
+
+enum PET_LEVEL_ENVIRONMENT{
+  BAIXO
+  MEDIO
+  ALTO
+}
+
 model Pet {
-  id                 String   @id @default(uuid())
-  about              String   
-  name               String
-  age                Decimal 
-  size               LevelPet
-  level_independence LevelPet
-  environment        LevelPet
-  image_url          String[]
-  requirement        String[]
-  organization_id    String    
-  organization       Organization @relation(fields: [organization_id], references: [id])
+  id                        String   @id @default(uuid())
+  about                     String   
+  name                      String
+  age                       PET_AGE 
+  size                      PET_SIZE
+  level_independence        PET_LEVEL_INDEPENDENCE
+  level_environment         PET_LEVEL_ENVIRONMENT
+  image_url                 String[]
+  requirement               String[]
+  organization_id           String    
+  organization              Organization @relation(fields: [organization_id], references: [id])
   @@map("pets")
 }
 

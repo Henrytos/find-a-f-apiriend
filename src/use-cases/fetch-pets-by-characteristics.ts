@@ -1,24 +1,22 @@
-import { OrganizationRepository } from "@/repository/organization-repository";
-import { PetRepository } from "@/repository/pet-repository";
+import { PetCharacteristics, PetRepository } from "@/repository/pet-repository";
 import { Pet } from "@prisma/client";
+import { NotFoundPetError } from "./errors/not-found-pet-error";
 
 
 
-interface FetchPetsByCharacteristicsUseCaseRequest {
-
+interface FetchPetsByCharacteristicsUseCaseRequest extends PetCharacteristics {
 }
 interface FetchPetsByCharacteristicsUseCaseResponse {
     pets: Pet[]
 }
 
 export class FetchPetsByCharacteristicsUseCase {
-    constructor(private organizationRepository: OrganizationRepository, private petRepository: PetRepository) { }
+    constructor(private petRepository: PetRepository) { }
 
-    async execute({ }: FetchPetsByCharacteristicsUseCaseRequest): Promise<FetchPetsByCharacteristicsUseCaseResponse> {
-
-
+    async execute(petCharacteristics: FetchPetsByCharacteristicsUseCaseRequest): Promise<FetchPetsByCharacteristicsUseCaseResponse> {
+        const pets = await this.petRepository.findManyPetByCharacteristics(petCharacteristics)
         return {
-            pets: []
+            pets
         }
     }
 

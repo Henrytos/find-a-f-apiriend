@@ -8,7 +8,10 @@
     "test:watch": "vitest",
     "start": "node build/server.ts",
     "start:dev": "tsx watch src/server.ts",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "migrate:dev":"prisma migrate dev ",
+    "prisma:types":"prisma generate "
+
   },
   "keywords": [],
   "author": "",

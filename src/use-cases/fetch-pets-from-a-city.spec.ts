@@ -53,25 +53,25 @@ describe('fetch pet from a city (UNIT)', () => {
         petRepository.items.push({
             id: 'pet-01',
             about: 'um  dog legal',
-            age: new Decimal(+'1'),
-            environment: 'LARGE',
-            level_independence: 'LARGE',
+            age: 'FILHOTE',
+            level_environment: 'BAIXO',
+            level_independence: 'ALTO',
             name: 'pet',
             organization_id: 'organization-01',
-            size: 'LARGE',
+            size: 'PEQUENO',
             image_url: [],
             requirement: []
         })
 
         petRepository.items.push({
             id: 'pet-02',
-            about: 'um  cat legal',
-            age: new Decimal(+'1'),
-            environment: 'LARGE',
-            level_independence: 'LARGE',
-            name: 'pet',
             organization_id: 'organization-02',
-            size: 'LARGE',
+            about: 'um  cat legal',
+            age: 'FILHOTE',
+            level_environment: 'BAIXO',
+            level_independence: 'ALTO',
+            name: 'pet',
+            size: 'PEQUENO',
             image_url: [],
             requirement: []
         })

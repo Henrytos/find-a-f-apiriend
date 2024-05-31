@@ -13,13 +13,13 @@ describe('register pet (UNIT)', () => {
         const { pet } = await sut.execute({
             id: 'pet-01',
             about: 'um pet muito legal',
-            age: 1,
-            environment: 'LARGE',
+            age: 'FILHOTE',
+            level_environment: 'MEDIO',
             image_url: [],
-            level_independence: 'LARGE',
+            level_independence: 'BAIXO',
             name: 'pet',
             organization_id: 'organization-id-1',
-            size: 'LARGE',
+            size: 'PEQUENO',
         }
         )
         expect(pet).toEqual(
