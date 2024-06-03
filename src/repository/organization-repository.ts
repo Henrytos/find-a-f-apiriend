@@ -1,7 +1,7 @@
 import { Organization, Prisma } from "@prisma/client";
 
 
-interface findByOrganizationByEmailAndPasswordParams{
+export interface findByOrganizationByEmailAndPasswordParams{
     email:string
     password:string
 }
