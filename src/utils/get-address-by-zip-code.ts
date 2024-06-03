@@ -1,6 +1,6 @@
 //TODO: api de cep https://viacep.com.br/
 
-import { NotFoundZipCodeError } from "./errors/not-found-zip-code-error"
+import { NotFoundZipCodeError } from "../use-cases/errors/not-found-zip-code-error"
 
 interface Response {
     cep: string,

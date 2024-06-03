@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { RegisterOrganizationUseCase } from "./register-organization";
-import { NotFoundZipCodeError } from "@/utils/errors/not-found-zip-code-error";
+import { NotFoundZipCodeError } from "./errors/not-found-zip-code-error";
 
 let organizationRepository: InMemoryOrganizationRepository
 let sut: RegisterOrganizationUseCase
