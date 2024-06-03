@@ -16,7 +16,6 @@ describe('fetch pet from a city (UNIT)', () => {
 
         organizationRepository.items.push({
             id: 'organization-01',
-            address: 'rua 1',
             city: 'são paulo',
             email: '',
             manager_name: '',
@@ -31,7 +30,6 @@ describe('fetch pet from a city (UNIT)', () => {
 
         organizationRepository.items.push({
             id: 'organization-02',
-            address: 'rua 1',
             city: 'são paulo',
             email: '',
             manager_name: '',

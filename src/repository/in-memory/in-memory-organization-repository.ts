@@ -17,7 +17,6 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
         const newOrganization: Organization = {
             id: organization.id ?? randomUUID(),
             manager_name: organization.manager_name,
-            address: organization.address,
             city: organization.city,
             email: organization.email,
             password_hash: organization.password_hash,
