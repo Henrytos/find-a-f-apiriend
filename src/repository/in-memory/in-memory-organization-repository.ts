@@ -2,14 +2,19 @@ import { Organization, Prisma } from "@prisma/client";
 import { OrganizationRepository } from "../organization-repository";
 import { hash } from "bcrypt";
 import { randomUUID } from "crypto";
+import { findByOrganizationByEmailAndPasswordParams } from "../organization-repositroy"
+
 export class InMemoryOrganizationRepository implements OrganizationRepository {
+    
     public items: Organization[] = []
 
     async findManyOrganizationByCityName(cityName: string) {
         const organizationOfACity = this.items.filter(item => item.city === cityName)
+        
         if (organizationOfACity.length === 0) {
             return null
         }
+        
         return organizationOfACity
     }
 
@@ -27,18 +32,38 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
             state: organization.state,
             role: "ORG",
         }
+        
         this.items.push(
             newOrganization
         )
+        
         return newOrganization
 
     }
 
     async findByOrganizationId(id: string) {
         const organization = this.items.find(item => item.id === id)
+        
         if (!organization) {
             return null
         }
+        
+        return organization
+    }
+
+    async findByOrganizationByEmailAndPassword({ email , password }:findByOrganizationByEmailAndPasswordParams){
+        const organization = this.items.find(item => item.email === email)
+        
+        if(!organization){
+            return null
+        }
+        
+        const isValidate = await compare(organization.password_hash,password)
+        
+        if(!isValidate){
+            return null
+        }
+
         return organization
     }
 
