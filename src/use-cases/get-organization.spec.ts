@@ -1,7 +1,7 @@
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { GetOrganizationUseCase } from "./get-organization";
-import { NotFoundOrganizationError } from "./errors/not-found-organition";
+import { NotFoundOrganizationError } from "./errors/not-found-organization";
 
 let organizationRepository: InMemoryOrganizationRepository
 let sut: GetOrganizationUseCase

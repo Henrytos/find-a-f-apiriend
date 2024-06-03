@@ -2,7 +2,7 @@ import { OrganizationRepository } from "@/repository/organization-repository";
 import { PetRepository } from "@/repository/pet-repository";
 import { Organization, Pet } from "@prisma/client";
 import { NotFoundPetError } from "./errors/not-found-pet-error";
-import { NotFoundOrganizationError } from "./errors/not-found-organition";
+import { NotFoundOrganizationError } from "./errors/not-found-organization";
 
 interface GetOrganizationUseCaseRequest {
     organizationId: string;

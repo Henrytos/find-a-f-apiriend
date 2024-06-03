@@ -22,16 +22,17 @@ describe('register organization use case (UNIT)', () => {
             number: '123',
             zipCode: '02363158',
         })
-
+        expect(organization.password_hash).not.toEqual('password-test')
         expect(organization).toEqual(
             expect.objectContaining({
+                id: expect.any(String),
                 manager_name: 'manager name example',
                 email: 'test.example@gmail.com',
             })
         )
     })
 
-    it('should register a organization', async () => {
+    it('should not register a organization', async () => {
         await expect(() => sut.execute({
             email: 'test.example@gmail.com',
             password: 'password-test',

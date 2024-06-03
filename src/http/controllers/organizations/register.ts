@@ -31,8 +31,8 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 
     } catch (error) {
         if (error instanceof NotFoundZipCodeError) {
-            reply.send('cep invalid').status(500)
+            reply.send({ message: 'cep invalid' }).status(500)
         }
-        reply.send('internal server error').status(500)
+        reply.send({ message: 'internal server error' }).status(500)
     }
 }
