@@ -37,7 +37,6 @@ model Organization {
   neighborhood       String
   city               String
   state              String
-  address            String
    @@map("organizations")
 }
 
