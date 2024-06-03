@@ -1,5 +1,7 @@
 //TODO: api de cep https://viacep.com.br/
 
+import { NotFoundZipCodeError } from "./errors/not-found-zip-code-error"
+
 interface Response {
     cep: string,
     logradouro: string
@@ -12,27 +14,26 @@ interface Response {
 }
 
 interface getAddressByZipCodeResponse {
-    address: {
-        cep: string,
-        roadway: string
-        neighborhood: string
-        city: string
-        state: string
-        address: string
-    }
+    zipCode: string,
+    roadway: string
+    neighborhood: string
+    city: string
+    state: string
 }
 export async function getAddressByZipCode(zipCode: string): Promise<getAddressByZipCodeResponse> {
 
-    const data = await fetch(`https://viacep.com.br/ws/${zipCode}/json/`)
-    const response: Response = await data.json()
-    return {
-        address: {
-            address: response.logradouro,
+    try {
+        const data = await fetch(`https://viacep.com.br/ws/${zipCode}/json/`)
+        const response: Response = await data.json()
+        return {
             neighborhood: response.bairro,
-            cep: response.cep,
+            zipCode: response.cep,
             city: response.localidade,
             roadway: response.logradouro,
             state: response.uf,
         }
+    } catch (error) {
+        throw new NotFoundZipCodeError()
     }
+
 }
