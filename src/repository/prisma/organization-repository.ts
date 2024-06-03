@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma"
 import { OrganizationRepository } from "../organization-repository"
 import { randomUUID } from "crypto"
 import { Prisma } from "@prisma/client"
-
+import { findByOrganizationByEmailAndPasswordParams } from "organization-repository"
 
 export class PrismaOrganizationRepository implements OrganizationRepository {
 
@@ -48,6 +48,22 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
         })
 
         return organization
+    }
+
+    async findByOrganizationByEmailAndPassword({email, password}:findByOrganizationByEmailAndPasswordParams){
+        const organization =  awaiit prisma.organization.findFirst({
+            where:{
+                email,
+            }
+        })
+        
+        const isValidatePassword = await compare(organization.password_hash,password)
+
+        if(!isValidatePassword){
+            return null
+        }
+        
+        return organization              
     }
 
 }
