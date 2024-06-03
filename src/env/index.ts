@@ -10,7 +10,8 @@ const schema = z.object({
 const _env = schema.safeParse(process.env)
 
 if (_env.success == false) {
-    console.error(_env.error.formErrors)
+    console.log(`Error parsing env: ${_env.error.format()}`)
+    throw new Error('Error parsing env')
 }
 
 export const env = schema.parse(process.env)
