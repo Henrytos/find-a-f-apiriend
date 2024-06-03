@@ -35,9 +35,12 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
 
     }
 
-    async findManyOrganizationId(id: string) {
-        const organizations = this.items.filter(item => item.id === id)
-        return organizations
+    async findByOrganizationId(id: string) {
+        const organization = this.items.find(item => item.id === id)
+        if (!organization) {
+            return null
+        }
+        return organization
     }
 
 }
