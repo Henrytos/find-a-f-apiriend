@@ -2,8 +2,7 @@ import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repo
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { FetchPetsFromACityUseCase } from "./fetch-pets-from-a-city";
-import { Decimal } from "@prisma/client/runtime/library";
-import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-error";
+import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-in-city-error";
 
 let petRepository: InMemoryPetRepository
 let organizationRepository: InMemoryOrganizationRepository

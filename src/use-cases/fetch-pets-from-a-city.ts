@@ -1,7 +1,7 @@
 import { OrganizationRepository } from "@/repository/organization-repository";
 import { PetRepository } from "@/repository/pet-repository";
 import { Pet, Prisma } from "@prisma/client";
-import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-error";
+import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-in-city-error";
 
 type LevelPet = 'SMALL' | 'MEDIUM' | 'LARGE'
 

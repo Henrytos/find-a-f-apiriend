@@ -4,7 +4,7 @@ import { z } from 'zod'
 const schema = z.object({
     PORT: z.coerce.number().default(3000),
     DATABASE_URL: z.coerce.string(),
-
+    JWT_SECRET_KEY: z.coerce.string(),
 })
 
 const _env = schema.safeParse(process.env)
