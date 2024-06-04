@@ -6,7 +6,7 @@ import { z } from "zod";
 export async function register(req: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({
         manager_name: z.string(),
-        email: z.string(),
+        email: z.string().email(),
         password: z.string(),
         phone: z.string(),
         number: z.string(),
@@ -31,8 +31,8 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 
     } catch (error) {
         if (error instanceof NotFoundZipCodeError) {
-            reply.send({ message: 'cep invalid' }).status(500)
+            return reply.status(400).send({ message: 'cep invalid' })
         }
-        reply.send({ message: 'internal server error' }).status(500)
+        return reply.status(404).send({ message: 'internal server error' })
     }
 }

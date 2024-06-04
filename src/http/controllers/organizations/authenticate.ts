@@ -1,5 +1,5 @@
 import { NotFoundOrganizationError } from "@/use-cases/errors/not-found-organization";
-import { makeGetOrganizationByEmailAndPasswordUseCase } from "@/use-cases/factories/make-get-organization-by-email-and-password";
+import { makeAuthenticateOrganizationUseCase } from "@/use-cases/factories/make-authenticate-organization";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -12,7 +12,7 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
 
     const { email, password } = authenticateBodySchema.parse(req.body)
 
-    const useCase = makeGetOrganizationByEmailAndPasswordUseCase()
+    const useCase = makeAuthenticateOrganizationUseCase()
 
     try {
         const { organization } = await useCase.execute({
@@ -20,15 +20,10 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             password
         })
 
-        if (!organization) {
-            return reply.status(501).send()
-        }
-
-        const token = await reply.jwtSign({
-            sub: {
-                id: organization.id
+        const token = await reply.jwtSign({}, {
+            sign: {
+                sub: organization.id
             }
-        }, {
         })
 
         return reply.send({ token }).status(200)

@@ -21,6 +21,7 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
     }
 
     async create(organization: Prisma.OrganizationCreateInput) {
+        console.log(organization)
         const newOrganization = await prisma.organization.create({
             data: {
                 id: organization.id ?? randomUUID(),
@@ -69,4 +70,15 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
         return organization
     }
 
+    async findByOrganizationEmail(email: string) {
+        const organization = await prisma.organization.findFirst({
+            where: {
+                email,
+            }
+        })
+        if (!organization) {
+            return null
+        }
+        return organization
+    }
 }

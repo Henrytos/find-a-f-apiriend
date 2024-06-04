@@ -28,7 +28,7 @@ model Organization {
   pet                Pet[]
   role               Role @default(ORG)
   manager_name       String
-  email              String
+  email              String @unique
   phone              String
   password_hash      String  
 

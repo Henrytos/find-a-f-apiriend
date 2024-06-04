@@ -58,13 +58,21 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
             return null
         }
 
-        const isValidate = await compare(organization.password_hash, password)
-
-        if (!isValidate) {
+        const isValidatePassword = await compare(password, organization.password_hash)
+        if (!isValidatePassword) {
             return null
         }
 
         return organization
     }
 
+    async findByOrganizationEmail(email: string) {
+        const organization = this.items.find(item => item.email === email)
+        if (!organization) {
+            return null
+        }
+        return organization
+    }
 }
+
+

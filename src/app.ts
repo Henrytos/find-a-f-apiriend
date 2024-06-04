@@ -16,4 +16,5 @@ app.register(fastifyJwt, {
 
 app.register(fastifyCookie)
 
+
 app.register(organizationsRoutes)
