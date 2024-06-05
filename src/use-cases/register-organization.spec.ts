@@ -60,7 +60,6 @@ describe('register organization use case (UNIT)', () => {
 
     })
 
-
     it('should not register a organization invalid zip code ', async () => {
         await expect(() => sut.execute({
             email: 'test.example.@gmail.com',

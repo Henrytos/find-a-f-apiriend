@@ -25,29 +25,27 @@ export class RegisterOrganizationUseCase {
 
         const { city, neighborhood, state, roadway } = await getAddressByZipCode(zipCode)
 
-        try {
-            const organizationAlreadyExists = await this.organizationRepository.findByOrganizationEmail(email)
 
-            if (organizationAlreadyExists) {
-                throw new OrganizationAlreadyExistsError()
-            }
+        const organizationAlreadyExists = await this.organizationRepository.findByOrganizationEmail(email)
 
-            const organization = await this.organizationRepository.create({
-                manager_name,
-                email,
-                phone,
-                password_hash: password,
-                city,
-                neighborhood,
-                state,
-                number,
-                roadway
-            })
-
-            return { organization }
-        } catch (error) {
-            throw Error
+        if (organizationAlreadyExists) {
+            throw new OrganizationAlreadyExistsError()
         }
+
+        const organization = await this.organizationRepository.create({
+            manager_name,
+            email,
+            phone,
+            password_hash: password,
+            city,
+            neighborhood,
+            state,
+            number,
+            roadway
+        })
+
+        return { organization }
+
 
     }
 }
