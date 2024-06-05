@@ -6,7 +6,7 @@ import { jwtVerifyRole } from "@/http/middlewares/verify-jwt-role";
 
 
 export async function petsRoutes(app: FastifyInstance) {
-    app.get('/pets', fetchPetsByCityName)
     app.post('/pets', { onRequest: [jwtVerify, jwtVerifyRole('ORG')] }, register)
+    app.get('/pets/:cityName', fetchPetsByCityName)
 
 }
