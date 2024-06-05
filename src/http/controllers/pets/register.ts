@@ -5,9 +5,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 export async function register(req: FastifyRequest, reply: FastifyReply) {
-    const registerParamsSchema = z.object({
-        organizationId: z.string().uuid()
-    })
+
     const registerBodySchema = z.object({
         about: z.string(),
         name: z.string(),
@@ -19,7 +17,7 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
         requirement: z.string().array().min(1)
     })
 
-    const { organizationId } = registerParamsSchema.parse(req.params)
+
 
     const { about, name, age, size, level_independence, level_environment, image_url, requirement } = registerBodySchema.parse(req.body)
 
@@ -27,7 +25,7 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 
     try {
         await useCase.execute({
-            organization_id: organizationId,
+            organization_id: req.user.sub,
             about, name, age, size, level_independence, level_environment, image_url, requirement
         })
 

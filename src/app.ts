@@ -4,6 +4,7 @@ import fastifyJwt from "@fastify/jwt"
 
 import { organizationsRoutes } from "./http/controllers/organizations/routes";
 import { env } from "./env";
+import { petsRoutes } from "./http/controllers/pets/routes";
 
 export const app = fastify()
 
@@ -18,3 +19,6 @@ app.register(fastifyCookie)
 
 
 app.register(organizationsRoutes)
+app.register(petsRoutes
+
+)
