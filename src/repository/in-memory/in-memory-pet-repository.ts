@@ -1,5 +1,5 @@
 import { $Enums, Pet } from "@prisma/client";
-import { CreatePetParams, PetCharacteristics, PetRepository } from "../pet-repository";
+import { CreatePetParams, FindManyPetByManyOrganizationIdParams, PetCharacteristics, PetRepository } from "../pet-repository";
 import { Decimal } from "@prisma/client/runtime/library";
 import { randomUUID } from "crypto";
 
@@ -46,8 +46,17 @@ export class InMemoryPetRepository implements PetRepository {
         return pets
     }
 
-    async findManyPetByManyOrganizationId({ organizationsId }: { organizationsId: string[]; }) {
+    async findManyPetByManyOrganizationId({ organizationsId, petCharacteristics }: FindManyPetByManyOrganizationIdParams) {
         const pets = []
+
+        if (petCharacteristics) {
+            for (const organizationId of organizationsId) {
+                const pet: Pet[] = await this.findManyPetByOrganizationId(organizationId)
+                const filteredPet = pet.filter(item => item.age === petCharacteristics.age && item.size === petCharacteristics.size && item.level_independence === petCharacteristics.level_independence && item.level_environment === petCharacteristics.level_environment)
+                pets.push(...filteredPet)
+            }
+            return pets
+        }
 
         for (const organizationId of organizationsId) {
             const pet = await this.findManyPetByOrganizationId(organizationId)

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { CreatePetParams, PetCharacteristics, PetRepository } from "../pet-repository";
+import { CreatePetParams, FindManyPetByManyOrganizationIdParams, PetCharacteristics, PetRepository } from "../pet-repository";
 import { randomUUID } from "crypto";
 
 export class PrismaPetRepository implements PetRepository {
@@ -63,7 +63,31 @@ export class PrismaPetRepository implements PetRepository {
         return pets
     }
 
-    async findManyPetByManyOrganizationId({ organizationsId }: { organizationsId: string[]; }) {
+    async findManyPetByManyOrganizationId({ organizationsId, petCharacteristics }: FindManyPetByManyOrganizationIdParams) {
+
+        if (petCharacteristics) {
+            const pets = await prisma.pet.findMany({
+                where: {
+                    AND: [
+                        {
+                            OR: [
+                                ...organizationsId.map((id) => ({
+                                    organization_id: id
+                                }))
+                            ]
+                        },
+                        {
+                            age: petCharacteristics.age,
+                            size: petCharacteristics.size,
+                            level_environment: petCharacteristics.level_environment,
+                            level_independence: petCharacteristics.level_independence,
+                        }
+                    ]
+                }
+            })
+            return pets
+        }
+
         const pets = await prisma.pet.findMany({
             where: {
                 OR: [

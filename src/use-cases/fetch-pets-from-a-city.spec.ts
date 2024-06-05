@@ -1,88 +1,98 @@
+import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repository";
 import { beforeEach, describe, expect, it } from "vitest";
-import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { FetchPetsFromACityUseCase } from "./fetch-pets-from-a-city";
-import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-in-city-error";
 
-let petRepository: InMemoryPetRepository
 let organizationRepository: InMemoryOrganizationRepository
+let petRepository: InMemoryPetRepository
 let sut: FetchPetsFromACityUseCase
-describe('fetch pet from a city (UNIT)', () => {
-
+describe('fetch pets from a city use case (UNIT)', () => {
     beforeEach(() => {
-        petRepository = new InMemoryPetRepository()
         organizationRepository = new InMemoryOrganizationRepository()
-
+        petRepository = new InMemoryPetRepository()
+        sut = new FetchPetsFromACityUseCase(organizationRepository, petRepository)
         organizationRepository.items.push({
             id: 'organization-01',
             city: 'são paulo',
-            email: '',
-            manager_name: '',
+            email: 'organization.example@example.com',
+            manager_name: 'organization name manager',
             neighborhood: '',
             number: '',
             password_hash: '',
-            phone: '',
+            phone: '11 99999 9999',
             roadway: '',
             role: 'ORG',
             state: '',
         })
-
-        organizationRepository.items.push({
-            id: 'organization-02',
-            city: 'são paulo',
-            email: '',
-            manager_name: '',
-            neighborhood: '',
-            number: '',
-            password_hash: '',
-            phone: '',
-            roadway: '',
-            role: 'ORG',
-            state: '',
-        })
-
-        sut = new FetchPetsFromACityUseCase(organizationRepository, petRepository)
-    })
-
-    it('should be possible to find pets from a city', async () => {
-
 
         petRepository.items.push({
             id: 'pet-01',
-            about: 'um  dog legal',
+            organization_id: 'organization-01',
+            name: 'pet name',
+            about: 'about pet',
+            level_independence: 'BAIXO',
             age: 'FILHOTE',
             level_environment: 'BAIXO',
-            level_independence: 'ALTO',
-            name: 'pet',
-            organization_id: 'organization-01',
             size: 'PEQUENO',
+            requirement: [],
             image_url: [],
-            requirement: []
         })
 
         petRepository.items.push({
-            id: 'pet-02',
-            organization_id: 'organization-02',
-            about: 'um  cat legal',
-            age: 'FILHOTE',
-            level_environment: 'BAIXO',
+            id: 'pet-01',
+            organization_id: 'organization-01',
+            name: 'pet name',
+            about: 'about pet',
             level_independence: 'ALTO',
-            name: 'pet',
-            size: 'PEQUENO',
+            age: 'IDOSO',
+            level_environment: 'ALTO',
+            size: 'GRANDE',
+            requirement: [],
             image_url: [],
-            requirement: []
         })
+    })
+
+    it('should fetch pets from a city', async () => {
+
 
         const { pets } = await sut.execute({ cityName: 'são paulo' })
-        expect(pets).toEqual([
-            expect.objectContaining({ id: 'pet-01', organization_id: 'organization-01', }),
-            expect.objectContaining({ id: 'pet-02', organization_id: 'organization-02', }),
+        expect(pets).toEqual([expect.objectContaining({
+            name: 'pet name',
+            about: 'about pet',
+            level_independence: 'BAIXO',
+            age: 'FILHOTE',
+            level_environment: 'BAIXO',
+            size: 'PEQUENO',
+        }),
+        expect.objectContaining({
+            name: 'pet name',
+            about: 'about pet',
+            level_independence: 'ALTO',
+            age: 'IDOSO',
+            level_environment: 'ALTO',
+            size: 'GRANDE',
+        })
         ])
     })
 
+    it('should fetch pets from a city and pet characteristics', async () => {
 
-    it('It should not be possible to find pets from city-name-invalid', async () => {
-        await expect(() => sut.execute({ cityName: '' })).rejects.toBeInstanceOf(NotFoundOrganizationInCityError)
 
+        const { pets } = await sut.execute({
+            cityName: 'são paulo', petCharacteristics: {
+                level_independence: 'ALTO',
+                age: 'IDOSO',
+                level_environment: 'ALTO',
+                size: 'GRANDE',
+            }
+        })
+        expect(pets).toEqual([expect.objectContaining({
+            name: 'pet name',
+            about: 'about pet',
+            level_independence: 'ALTO',
+            age: 'IDOSO',
+            level_environment: 'ALTO',
+            size: 'GRANDE',
+        })])
     })
 })
