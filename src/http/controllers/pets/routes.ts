@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { fetchPetsByCityName } from "./fetch-pets-by-city-name";
+import { fetchPetsByCityName } from "./fetch-pets";
 
 
 export async function petsRoutes(app: FastifyInstance) {
