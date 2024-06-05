@@ -15,7 +15,7 @@ describe('register organization use case (UNIT)', () => {
         sut = new RegisterOrganizationUseCase(organizationRepository)
     })
 
-    it.skip('should register a organization', async () => {
+    it('should register a organization', async () => {
         const { organization } = await sut.execute({
             email: 'test.example@gmail.com',
             password: 'password-test',
@@ -34,7 +34,7 @@ describe('register organization use case (UNIT)', () => {
         )
     })
 
-    it.skip('should not register a organization duplicate email', async () => {
+    it('should not register a organization duplicate email', async () => {
         organizationRepository.items.push({
             id: randomUUID(),
             email: 'test.example@gmail.com',
@@ -60,7 +60,7 @@ describe('register organization use case (UNIT)', () => {
 
     })
 
-    it.skip('should not register a organization invalid zip code ', async () => {
+    it('should not register a organization invalid zip code ', async () => {
         await expect(() => sut.execute({
             email: 'test.example.@gmail.com',
             password: 'password-test',
