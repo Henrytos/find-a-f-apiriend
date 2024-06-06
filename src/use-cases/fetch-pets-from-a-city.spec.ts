@@ -2,6 +2,7 @@ import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory
 import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { FetchPetsFromACityUseCase } from "./fetch-pets-from-a-city";
+import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-in-city-error";
 
 let organizationRepository: InMemoryOrganizationRepository
 let petRepository: InMemoryPetRepository
@@ -73,6 +74,10 @@ describe('fetch pets from a city use case (UNIT)', () => {
             size: 'GRANDE',
         })
         ])
+    })
+
+    it('should not fetch pets from a invalid city', async () => {
+        await expect(sut.execute({ cityName: 'invalid city name' })).rejects.toBeInstanceOf(NotFoundOrganizationInCityError)
     })
 
     it('should fetch pets from a city and pet characteristics', async () => {

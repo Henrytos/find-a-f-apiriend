@@ -2,6 +2,7 @@ import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repo
 import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterPetUseCase } from "./register-pet";
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
+import { NotFoundOrganizationError } from "./errors/not-found-organization";
 
 let petRepository: InMemoryPetRepository
 let organizationRepository: InMemoryOrganizationRepository
@@ -44,5 +45,20 @@ describe('register pet (UNIT)', () => {
                 id: 'pet-01',
             })
         )
+    })
+
+    it('should not register a pet in invalid id organization ', async () => {
+        await expect(() => sut.execute({
+            id: 'pet-01',
+            about: 'um pet muito legal',
+            age: 'FILHOTE',
+            level_environment: 'MEDIO',
+            image_url: [],
+            level_independence: 'BAIXO',
+            name: 'pet',
+            organization_id: 'invalid id organization',
+            size: 'PEQUENO',
+        }
+        )).rejects.toBeInstanceOf(NotFoundOrganizationError)
     })
 })
