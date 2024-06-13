@@ -1,5 +1,5 @@
 import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repository";
-import { beforeEach, describe, expect, it } from "vitest";
+
 import { RegisterPetUseCase } from "./register-pet";
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { NotFoundOrganizationError } from "./errors/not-found-organization";

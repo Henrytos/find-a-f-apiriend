@@ -1,5 +1,4 @@
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
-import { beforeEach, describe, expect, it } from "vitest";
 import { NotFoundOrganizationError } from "./errors/not-found-organization";
 import { hash } from "bcrypt";
 import { AuthenticateOrganizationUseCase } from "./authenticate-organization";

@@ -1,6 +1,5 @@
 import { InMemoryOrganizationRepository } from "@/repository/in-memory/in-memory-organization-repository";
 import { InMemoryPetRepository } from "@/repository/in-memory/in-memory-pet-repository";
-import { beforeEach, describe, expect, it } from "vitest";
 import { FetchPetsFromACityUseCase } from "./fetch-pets-from-a-city";
 import { NotFoundOrganizationInCityError } from "./errors/not-found-organization-in-city-error";
 
