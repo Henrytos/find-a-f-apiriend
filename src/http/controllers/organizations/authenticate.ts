@@ -20,6 +20,14 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             password
         })
 
+
+        const refreshToken = await reply.jwtSign({}, {
+            sign: {
+                sub: req.user.sub,
+                expiresIn: '7d'
+            }
+        })
+
         const token = await reply.jwtSign({
             role: organization.role
         }, {
@@ -28,7 +36,13 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             }
         })
 
-        return reply.send({ token }).status(200)
+        return reply.setCookie('refreshToken', refreshToken, {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            sameSite: true
+        }).send({ token }).status(200)
+
     } catch (error) {
         if (error instanceof NotFoundOrganizationError) {
             return reply.status(404).send()
