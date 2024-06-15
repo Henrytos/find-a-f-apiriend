@@ -27,7 +27,7 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
             zipCode
         })
 
-        reply.send().status(201)
+        reply.status(201).send()
 
     } catch (error) {
         if (error instanceof NotFoundZipCodeError) {
