@@ -3,7 +3,7 @@ import { register } from "./register";
 import { authenticate } from "./authenticate";
 import { profile } from "./profile";
 import { jwtVerify } from "@/http/middlewares/verify-jwt";
-import { refresh } from "./reflash";
+import { refresh } from "./refresh";
 
 
 export async function organizationsRoutes(app: FastifyInstance) {

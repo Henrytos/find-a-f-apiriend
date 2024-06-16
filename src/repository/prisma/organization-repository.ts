@@ -21,7 +21,6 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
     }
 
     async create(organization: Prisma.OrganizationCreateInput) {
-        console.log(organization)
         const newOrganization = await prisma.organization.create({
             data: {
                 id: organization.id ?? randomUUID(),
@@ -58,9 +57,11 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
                 email,
             }
         })
+
         if (!organization) {
             return null
         }
+
         const isValidatePassword = await compare(password, organization.password_hash)
 
         if (!isValidatePassword) {
