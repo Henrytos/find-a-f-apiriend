@@ -3,7 +3,7 @@
 import request from 'supertest'
 import { app } from "@/app"
 
-describe('authenticate organization (E2E)', () => {
+describe('profile organization (E2E)', () => {
 
     beforeEach(async () => {
         await app.ready()
@@ -14,8 +14,7 @@ describe('authenticate organization (E2E)', () => {
     })
 
 
-    it('should be able authenticate organization', async () => {
-
+    it('should be able profile organization', async () => {
         await request(app.server).post('/organizations').send({
             manager_name: "henry",
             email: "henry@gmail.com",
@@ -25,12 +24,20 @@ describe('authenticate organization (E2E)', () => {
             zipCode: "02363158"
         })
 
-        const response = await request(app.server).post('/session').send({
+        const { body } = await request(app.server).post('/session').send({
             email: "henry@gmail.com",
             password: "123456789",
         })
 
-        expect(response.body.token).toEqual(expect.any(String))
-        expect(response.status).toEqual(200)
+        const cookieAuth = body.token
+
+        const response = await request(app.server).get('/me').set('Authorization', `Bearer ${cookieAuth}`)
+
+        expect(response.body).toEqual(expect.objectContaining({
+            manager_name: 'henry',
+            email: 'henry@gmail.com',
+        }))
+
+        expect(response.status).toBe(200)
     })
 })

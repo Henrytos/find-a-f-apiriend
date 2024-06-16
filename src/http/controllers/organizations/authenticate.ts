@@ -40,7 +40,7 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             httpOnly: true,
             secure: true,
             sameSite: true
-        }).status(201).send({ token })
+        }).status(200).send({ token })
 
     } catch (error) {
         if (error instanceof NotFoundOrganizationError) {
