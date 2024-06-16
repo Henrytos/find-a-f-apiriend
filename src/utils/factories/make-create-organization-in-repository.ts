@@ -23,6 +23,7 @@ export async function makeCreateOrganizationInRepository({
             phone: faker.phone.number(),
             roadway: faker.location.country(),
             state: faker.location.state(),
+            role: "ORG"
         }
     })
 }

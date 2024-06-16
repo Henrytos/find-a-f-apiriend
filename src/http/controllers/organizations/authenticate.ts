@@ -28,7 +28,7 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
         })
 
         const token = await reply.jwtSign({
-            role: organization.role
+            role: "ORG"
         }, {
             sign: {
                 sub: organization.id

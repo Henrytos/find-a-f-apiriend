@@ -23,6 +23,4 @@ app.register(fastifyCookie)
 
 
 app.register(organizationsRoutes)
-app.register(petsRoutes
-
-)
+app.register(petsRoutes)
