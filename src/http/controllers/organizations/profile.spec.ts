@@ -2,30 +2,27 @@
 
 import request from 'supertest'
 import { app } from "@/app"
+import { makeCreateOrganizationInRepository } from '@/utils/factories/make-create-organization-in-repository'
 
 describe('profile organization (E2E)', () => {
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         await app.ready()
     })
 
-    afterEach(async () => {
+    afterAll(async () => {
         await app.close()
     })
 
 
     it('should be able profile organization', async () => {
-        await request(app.server).post('/organizations').send({
-            manager_name: "henry",
-            email: "henry@gmail.com",
+        await makeCreateOrganizationInRepository({
+            email: "example@gmail.com",
             password: "123456789",
-            phone: "11967603378",
-            number: "10",
-            zipCode: "02363158"
         })
 
         const { body } = await request(app.server).post('/session').send({
-            email: "henry@gmail.com",
+            email: "example@gmail.com",
             password: "123456789",
         })
 
@@ -34,8 +31,7 @@ describe('profile organization (E2E)', () => {
         const response = await request(app.server).get('/me').set('Authorization', `Bearer ${cookieAuth}`)
 
         expect(response.body).toEqual(expect.objectContaining({
-            manager_name: 'henry',
-            email: 'henry@gmail.com',
+            email: "example@gmail.com",
         }))
 
         expect(response.status).toBe(200)

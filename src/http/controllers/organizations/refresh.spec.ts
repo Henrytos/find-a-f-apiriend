@@ -2,6 +2,7 @@
 
 import request from 'supertest'
 import { app } from "@/app"
+import { makeCreateOrganizationInRepository } from '@/utils/factories/make-create-organization-in-repository'
 
 describe('refresh token organization (E2E)', () => {
 
@@ -16,17 +17,13 @@ describe('refresh token organization (E2E)', () => {
 
     it('should be able refresh token ', async () => {
 
-        await request(app.server).post('/organizations').send({
-            manager_name: "henry",
-            email: "henry@gmail.com",
+        await makeCreateOrganizationInRepository({
+            email: "example@gmail.com",
             password: "123456789",
-            phone: "11967603378",
-            number: "10",
-            zipCode: "02363158"
         })
 
         const auth = await request(app.server).post('/session').send({
-            email: "henry@gmail.com",
+            email: "example@gmail.com",
             password: "123456789",
         })
 

@@ -5,11 +5,11 @@ import { app } from "@/app"
 
 describe('register organization (E2E)', () => {
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         await app.ready()
     })
 
-    afterEach(async () => {
+    afterAll(async () => {
         await app.close()
     })
 
