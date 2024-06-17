@@ -20,16 +20,17 @@ export async function fetchPetsByCityName(req: FastifyRequest, reply: FastifyRep
     const petCharacteristics = fetchPetsBodySchema.safeParse(req.query);
 
     const useCase = makeFetchPetsFromACityUseCase()
+
     if (petCharacteristics.success) {
         const { pets } = await useCase.execute({
             cityName,
             petCharacteristics: petCharacteristics.data
         })
-        return reply.send({ cityName, count: pets.length, pets }).status(200)
+        return reply.status(200).send({ count: pets.length, pets })
     }
 
     const { pets } = await useCase.execute({
         cityName
     })
-    return reply.send({ count: pets.length, pets }).status(200)
+    return reply.status(200).send({ count: pets.length, pets })
 }

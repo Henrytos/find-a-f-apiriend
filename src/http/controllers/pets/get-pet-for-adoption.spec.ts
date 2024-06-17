@@ -5,7 +5,7 @@ import { makeCreateOrganizationInRepository } from '@/utils/factories/make-creat
 import { makeCreatePetInRepository } from '@/utils/factories/make-create-pet-in-repository'
 import request from 'supertest'
 
-describe('register pet (E2E)', () => {
+describe('get pet for adoption (E2E)', () => {
     beforeAll(async () => {
         await app.ready()
     })
@@ -14,7 +14,7 @@ describe('register pet (E2E)', () => {
         await app.close()
     })
 
-    it('should be able to register a pet', async () => {
+    it('should be able to get pet for adoption by pet id', async () => {
         const { organization } = await makeCreateOrganizationInRepository({
             email: "example@gmail.com",
             password: "123456789",
