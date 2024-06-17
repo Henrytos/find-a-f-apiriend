@@ -19,12 +19,13 @@ describe('register pet (E2E)', () => {
             password: "123456789",
         })
 
-        const { body } = await request(app.server).post('/session').send({
+
+        const auth = await request(app.server).post('/session').send({
             email: "example@gmail.com",
             password: "123456789",
         })
 
-        const cookieAuth = body.refresh
+        const cookieAuth = auth.body.token
 
         const response = await request(app.server).post('/pets').set('Authorization', `Bearer ${cookieAuth}`).send({
             name: 'Rex',
@@ -37,7 +38,7 @@ describe('register pet (E2E)', () => {
             requirement: ['Passeios diários']
         })
 
-        console.log(response.status)
+        expect(response.status).toBe(201)
     })
 
 })
