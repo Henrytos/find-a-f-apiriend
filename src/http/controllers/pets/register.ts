@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 export async function register(req: FastifyRequest, reply: FastifyReply) {
-    console.log('register pet controller')
+
     const registerBodySchema = z.object({
         name: z.string(),
         about: z.string(),
@@ -26,7 +26,7 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
             about, name, age, size, level_independence, level_environment, image_url, requirement
         })
 
-        reply.send().status(201)
+        reply.status(201).send()
 
     } catch (error) {
         console.log(error)
