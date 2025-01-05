@@ -9,7 +9,7 @@
     "test:e2e": "vitest --dir src/http",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "start": "node build/server.ts",
+    "start": "node build/server.js",
     "start:dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build",
     "migrate:dev": "prisma migrate dev ",

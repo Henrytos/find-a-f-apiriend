@@ -82,4 +82,5 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
         }
         return organization
     }
+
 }

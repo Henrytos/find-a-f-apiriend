@@ -24,3 +24,7 @@ app.register(fastifyCookie)
 
 app.register(organizationsRoutes)
 app.register(petsRoutes)
+
+app.get('/', async (request, reply) => {
+    return reply.send("Hello World")
+})
