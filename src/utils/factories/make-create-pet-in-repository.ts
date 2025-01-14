@@ -35,6 +35,7 @@ export async function makeCreatePetInRepository({
             size: size ?? 'GRANDE',
             image_url: [faker.image.url()],
             requirement: [faker.lorem.sentence()],
+            
         }
     })
 

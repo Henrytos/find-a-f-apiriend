@@ -19,12 +19,13 @@ app.register(fastifyJwt, {
     }
 })
 
+
+app.get('/', async (request, reply) => {
+    return reply.send("Hello World").status(200)
+})
+
 app.register(fastifyCookie)
 
 
 app.register(organizationsRoutes)
 app.register(petsRoutes)
-
-app.get('/', async (request, reply) => {
-    return reply.send("Hello World")
-})

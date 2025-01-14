@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum LevelPet{
+enum LevelPet {
   SMALL
   MEDIUM
   LARGE
@@ -24,59 +24,60 @@ enum Role {
 }
 
 model Organization {
-  id                 String @id @default(uuid())
-  pet                Pet[]
-  role               Role @default(ORG)
-  manager_name       String
-  email              String @unique
-  phone              String
-  password_hash      String  
+  id            String @id @default(uuid())
+  pet           Pet[]
+  role          Role   @default(ORG)
+  manager_name  String
+  email         String @unique
+  phone         String
+  password_hash String
 
-  roadway            String
-  number             String
-  neighborhood       String
-  city               String
-  state              String
-   @@map("organizations")
+  roadway      String
+  number       String
+  neighborhood String
+  city         String
+  state        String
+
+  @@map("organizations")
 }
 
-enum PET_AGE{
+enum PET_AGE {
   FILHOTE
   ADULTO
   IDOSO
 }
 
-enum PET_SIZE{
+enum PET_SIZE {
   PEQUENO
   MEDIO
   GRANDE
 }
-enum PET_LEVEL_INDEPENDENCE{
+
+enum PET_LEVEL_INDEPENDENCE {
   BAIXO
   MEDIO
   ALTO
 }
 
-enum PET_LEVEL_ENVIRONMENT{
+enum PET_LEVEL_ENVIRONMENT {
   BAIXO
   MEDIO
   ALTO
 }
 
 model Pet {
-  id                        String   @id @default(uuid())
-  about                     String   
-  name                      String
-  age                       PET_AGE 
-  size                      PET_SIZE
-  level_independence        PET_LEVEL_INDEPENDENCE
-  level_environment         PET_LEVEL_ENVIRONMENT
-  image_url                 String[]
-  requirement               String[]
-  organization_id           String    
-  organization              Organization @relation(fields: [organization_id], references: [id])
+  id                 String                 @id @default(uuid())
+  about              String
+  name               String
+  age                PET_AGE
+  size               PET_SIZE
+  level_independence PET_LEVEL_INDEPENDENCE
+  level_environment  PET_LEVEL_ENVIRONMENT
+  image_url          String[]
+  requirement        String[]
+  organization_id    String
+  organization       Organization           @relation(fields: [organization_id], references: [id])
+  created_at         DateTime               @default(now())
+
   @@map("pets")
 }
-
-
-

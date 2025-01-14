@@ -20,4 +20,5 @@ export interface PetRepository {
     findManyPetByOrganizationId(organizationId: string): Promise<Pet[]>
     findManyPetByManyOrganizationId({ organizationsId, petCharacteristics }: FindManyPetByManyOrganizationIdParams): Promise<Pet[]>
     findManyPetByCharacteristics(data: PetCharacteristics): Promise<Pet[]>
+    fetchRecent(page: number, perPage: number): Promise<Pet[]>
 }

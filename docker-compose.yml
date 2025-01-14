@@ -1,23 +1,18 @@
-version: "2.32.0"
 
 services:
-  database:
-    image: postgres:17
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@postgres:5432/postgres"
+  postgres:
+    image: postgres:latest
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
-    volumes:
-      - ./data:/var/lib/postgresql/data
-  api:
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-    - database
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@database:5432/postgres
-    volumes:
-      - ./:/src/app

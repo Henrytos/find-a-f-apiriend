@@ -101,4 +101,16 @@ export class PrismaPetRepository implements PetRepository {
         return pets
 
     }
+
+    async fetchRecent(page: number, perPage: number) {
+        const pets = await prisma.pet.findMany({
+            take: perPage,
+            skip: (page - 1) * perPage,
+            orderBy: {
+                created_at: "desc"
+            }
+        })
+
+        return pets
+    }
 }

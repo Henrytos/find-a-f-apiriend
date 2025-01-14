@@ -1,13 +1,11 @@
-FROM node:latest 
+FROM node:latest
 
-WORKDIR /src/app
+RUN mkdir -p /home/app 
 
-COPY . .
+COPY . /home/app 
 
-RUN npm install
-
-
-CMD ["npm", "run" ,"start:dev"]
+WORKDIR /home/app
 
 EXPOSE 8080
 
+CMD ["npm", "run" ,"start:dev"]
