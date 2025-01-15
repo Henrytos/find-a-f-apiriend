@@ -1,12 +1,21 @@
 import fastify from "fastify";
 import fastifyCookie from "@fastify/cookie";
-import fastifyJwt from "@fastify/jwt"
 
 import { organizationsRoutes } from "./http/controllers/organizations/routes";
-import { env } from "./env";
 import { petsRoutes } from "./http/controllers/pets/routes";
+import cors from"@fastify/cors"
+import fastifyJwt from "@fastify/jwt";
+import {env} from "./env"
 
 export const app = fastify()
+
+app.register(cors, {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Authorization', 'Cookie'],
+    credentials: true
+    
+})
 
 app.register(fastifyJwt, {
     secret: env.JWT_SECRET_KEY,
@@ -20,12 +29,6 @@ app.register(fastifyJwt, {
 })
 
 
-app.get('/', async (request, reply) => {
-    return reply.send("Hello World").status(200)
-})
-
 app.register(fastifyCookie)
-
-
 app.register(organizationsRoutes)
 app.register(petsRoutes)

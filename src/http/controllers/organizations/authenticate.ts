@@ -20,6 +20,8 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             password
         })
 
+        console.log({organization})
+
         const refreshToken = await reply.jwtSign({}, {
             sign: {
                 sub: organization.id,
@@ -31,7 +33,8 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             role: "ORG"
         }, {
             sign: {
-                sub: organization.id
+                sub: organization.id,
+                expiresIn: '10m'
             }
         })
 
@@ -41,6 +44,8 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
             secure: true,
             sameSite: true
         }).status(200).send({ token })
+
+        
 
     } catch (error) {
         if (error instanceof NotFoundOrganizationError) {

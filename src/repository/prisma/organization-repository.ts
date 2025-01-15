@@ -58,6 +58,8 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
             }
         })
 
+        console.log({organization})
+
         if (!organization) {
             return null
         }

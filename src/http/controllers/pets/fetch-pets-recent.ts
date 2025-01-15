@@ -2,7 +2,7 @@ import { makeFetchPetsRecentUseCase } from "@/use-cases/factories/make-fetch-pet
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
-export async function fetchPetsRecent(request: FastifyRequest, reply:FastifyReply){
+export async function fetchPetsRecent(request: FastifyRequest, reply: FastifyReply) {
     const queryParamsSchema = z.object({
         page: z.coerce.number().int().positive().optional().default(1),
         perPage: z.coerce.number().int().positive().optional().default(10)
@@ -12,7 +12,11 @@ export async function fetchPetsRecent(request: FastifyRequest, reply:FastifyRepl
 
     const fetchPetsRecentUseCase = makeFetchPetsRecentUseCase()
 
-    const { pets} = await fetchPetsRecentUseCase.execute({ page, perPage })
+    const { pets } = await fetchPetsRecentUseCase.execute({ page, perPage })
+
+
+      await new Promise((resolve) => setTimeout(resolve, 4000)); // Atraso de 4 segundos
 
     return reply.status(200).send({ count: pets.length, pets })
+
 }

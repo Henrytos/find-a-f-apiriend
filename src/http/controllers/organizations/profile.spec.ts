@@ -28,6 +28,8 @@ describe('profile organization (E2E)', () => {
 
         const cookieAuth = body.token
 
+        console.log({cookieAuth})
+
         const response = await request(app.server).get('/me').set('Authorization', `Bearer ${cookieAuth}`)
 
         expect(response.body).toEqual(expect.objectContaining({
