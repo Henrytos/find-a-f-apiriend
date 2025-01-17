@@ -10,12 +10,12 @@ import {env} from "./env"
 export const app = fastify()
 
 app.register(cors, {
-    origin: '*',
+    origin: env.FRONT_END_URL,  // Substitua pelo domínio correto do seu front-end
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Authorization', 'Cookie'],
     credentials: true
-    
 })
+
 
 app.register(fastifyJwt, {
     secret: env.JWT_SECRET_KEY,
@@ -28,6 +28,11 @@ app.register(fastifyJwt, {
     }
 })
 
+app.get("/",async (request, reply)=>{
+    return reply.send({
+        message: "Hello, World!"
+    })
+})
 
 app.register(fastifyCookie)
 app.register(organizationsRoutes)

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { PrismaClient, PET_AGE, PET_SIZE, PET_LEVEL_INDEPENDENCE, PET_LEVEL_ENVIRONMENT } from '@prisma/client';
+import { hash } from 'bcrypt';
 
 
 
@@ -10,7 +11,7 @@ async function main() {
       manager_name: "John Doe",
       email: "org@example.com",
       phone: "123456789",
-      password_hash: "hashed_password",
+      password_hash: await hash("123456",8),
       roadway: "Main St.",
       number: "123",
       neighborhood: "Downtown",
