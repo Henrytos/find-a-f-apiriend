@@ -10,7 +10,7 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "start": "node build/server.js",
-    "start:dev": "tsx watch src/server.ts",
+    "start:dev": "tsx watch ./src/server.ts",
     "build": "tsup src --out-dir build",
     "migrate:dev": "prisma migrate dev ",
     "prisma:types": "prisma generate "

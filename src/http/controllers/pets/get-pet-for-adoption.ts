@@ -25,9 +25,7 @@ export async function getPetForAdoption(req: FastifyRequest, reply: FastifyReply
         })
 
         return reply.status(200).send({
-            pet: {
-                ...pet
-            },
+            pet,
             organization: {
                 ...organization,
                 password_hash: undefined,
