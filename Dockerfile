@@ -1,26 +1,13 @@
-# Base image
-FROM node:18-alpine
+FROM node
 
-# Install OpenSSL
-RUN apk add --no-cache openssl
+RUN mkdir -p /home/app
 
-# Set working directory
 WORKDIR /home/app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
 COPY . .
 
-# Build the application
-RUN npm run build
+RUN npm install
 
-# Expose the port the app runs on
 EXPOSE 8080
 
-# Start the application
-CMD ["npm", "start"]
+CMD ["npm","run", "start:dev"]

@@ -1,4 +1,14 @@
-services:
+services:  
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+    volumes:
+      - .:/home/app
   postgres:
     image: postgres:13
     ports:
@@ -9,17 +19,5 @@ services:
       POSTGRES_DB: postgres
     volumes:
     - postgres_data:/var/lib/postgresql/data
-  
-  api:
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
-    env_file:
-      - .env
-
 volumes:
   postgres_data:
