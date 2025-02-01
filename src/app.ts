@@ -28,11 +28,6 @@ app.register(fastifyJwt, {
     }
 })
 
-app.get("/",async (request, reply)=>{
-    return reply.send({
-        message: "Hello, World!"
-    })
-})
 
 app.register(fastifyCookie)
 app.register(organizationsRoutes)
