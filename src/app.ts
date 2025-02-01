@@ -10,7 +10,7 @@ import {env} from "./env"
 export const app = fastify()
 
 app.register(cors, {
-    origin: env.FRONT_END_URL,  // Substitua pelo domínio correto do seu front-end
+    origin: env.FRONT_END_URL, 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Authorization', 'Cookie'],
     credentials: true
